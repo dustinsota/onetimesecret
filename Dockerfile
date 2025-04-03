@@ -256,6 +256,6 @@ RUN set -eux \
 # Docker Compose configuration.
 
 # Rack app
-EXPOSE 8081
+EXPOSE 3000
 
 CMD ["bin/entrypoint.sh"]
