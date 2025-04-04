@@ -90,10 +90,9 @@ COPY --from=build /tmp/build-meta/commit_hash.txt .commit_hash.txt
 ENV RACK_ENV=production
 ENV RUBY_YJIT_ENABLE=1
 
-# ✅ Inject a secure site secret into config.yaml at build time
-RUN set -eux \
-  && cp --preserve --no-clobber etc/config.example.yaml etc/config.yaml \
-  && sed -i "s/:secret:.*/:secret: $(openssl rand -hex 32)/" etc/config.yaml
+RUN cp --preserve --no-clobber etc/config.example.yaml etc/config.yaml \
+  && sed -i "s/^\(\s*:secret:\).*/\1 $(openssl rand -hex 32)/" etc/config.yaml
+
 
 EXPOSE 3000
 CMD ["bin/entrypoint.sh"]
