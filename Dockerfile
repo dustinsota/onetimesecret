@@ -90,9 +90,6 @@ COPY --from=build /tmp/build-meta/commit_hash.txt .commit_hash.txt
 ENV RACK_ENV=production
 ENV RUBY_YJIT_ENABLE=1
 
-RUN cp --preserve --no-clobber etc/config.example.yaml etc/config.yaml \
-  && sed -i "s/^\(\s*:secret:\).*/\1 $(openssl rand -hex 32)/" etc/config.yaml
-
 
 EXPOSE 3000
 CMD ["bin/entrypoint.sh"]
